@@ -224,7 +224,7 @@ var westseattleCookies = {
       westseattleCookie.appendChild(liEl);
     }
   }
-};
+}; 
 westseattleCookies.render();
 
 
