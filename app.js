@@ -18,6 +18,7 @@ var hours = [
 ];
 
 //Broadway Location
+var allStores = [cookiesOnBroadway, northgateCookies, bellevueCookies, westseattleCookies, shorelineCookies ];
 var cookiesOnBroadway = {
   name: 'Cookies on Broadway',
   //creating key value pairs inside of my object they are called properties
@@ -221,7 +222,7 @@ var westseattleCookies = {
       //creating li elements with text of the hours
       liEl.textContent = hours[k] + ': ' + this.cookiesSoldByHour[k] + ' cookies';
       console.log('***********',liEl);
-      westseattleCookie.appendChild(liEl);
+      westseattleCookies.appendChild(liEl);
     }
   }
 }; 
