@@ -81,12 +81,44 @@ makeStands();
 //make header row
 //table needs an id in html
 
-function makeHeaderRow() {
+
+function tableRowMaker() {
   var cookiestands = document.getElementById('cookiestands');
-  var trEl = document.createElement('tr');
-  var thEl = document.createElement('th');
-  trEl.appendChild(thEl);
+  //make a table row
+  var trEl = document.createElement("tr");
+  //iterate through array
+  for (var i = 0; i < hours.length; i++) {
+    var tdEl = document.createElement("td"); //create
+    tdEl.textContent = hours[i]; //content
+    trEl.appendChild(tdEl); //add cell to the row
+  }
+  cookiestands.appendChild(trEl); //add row to the table
+  for (var k = 0; k < allLocations.length; k++) {
+    var location = allLocations[k];
+    var trEl2 = document.createElement("tr");
+    for (var j = 0; j < location.cookiesSoldByHour.length; j++) {
+      var cookiesSoldByHour = location.cookiesSoldByHour[j];
+      var tdEl2 = document.createElement("th");
+      tdEl2.textContent = cookiesSoldByHour; //create
+      trEl2.appendChild(tdEl2); //add cell to the row
+    }
+    cookiestands.appendChild(trEl2); 
+  }
 }
+
+tableRowMaker();
+
+// function makeHeaderRow() {
+//   var cookiestands = document.getElementById('cookiestands');
+//   for (var i = 0; i < hours.length; i++) {
+//     var trEl = document.createElement('tr');
+//     var thEl = document.createElement('th');
+//     trEl.appendChild(thEl);
+//     cookiestands.appendChild(thEl);
+//   }
+// }
+
+// makeHeaderRow();
 
 console.log(allLocations)
 
