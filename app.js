@@ -80,9 +80,10 @@ makeStands();
 //make header row
 //table needs an id in html
 
+var total = ['totals',0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
+var cookiestands = document.getElementById('cookiestands');
 function tableRowMaker() {
-  var cookiestands = document.getElementById('cookiestands');
   //make a table row
   var trEl = document.createElement("tr");
   //iterate through array
@@ -95,11 +96,14 @@ function tableRowMaker() {
   cookiestands.appendChild(trEl); //add row to the table
   for (var k = 0; k < allLocations.length; k++) {
     var location = allLocations[k];
-    var trEl2 = document.createElement("tr");
+    var trEl2 = document.createElement('tr');
     location.cookiesSoldByHour.unshift(location.name);
     for (var j = 0; j < location.cookiesSoldByHour.length; j++) {
       var cookiesSoldByHour = location.cookiesSoldByHour[j];
-      var tdEl2 = document.createElement("td");
+      if (j > 0)  {   
+        total[j] += cookiesSoldByHour;
+      }
+      var tdEl2 = document.createElement('td');
       tdEl2.textContent = cookiesSoldByHour; //create
       trEl2.appendChild(tdEl2); //add cell to the row
     }
@@ -107,6 +111,17 @@ function tableRowMaker() {
   }
 }
 
-tableRowMaker();
+function footerRow() {
+  var trEl = document.createElement('tr');
+  for (var i = 0; i < total.length; i++) {
+    var tdEl = document.createElement('td'); //create
+    tdEl.textContent = total[i]; //set the content of the tdel
+    trEl.appendChild(tdEl); //add cell to the row
+  }
+  cookiestands.appendChild(trEl); //add row to the table
+}
 
+tableRowMaker();
+footerRow();
 console.log(allLocations);
+console.log('total', total);
