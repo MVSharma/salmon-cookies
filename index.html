@@ -10,8 +10,28 @@
 <body>
     <h1>Salmon Cookies</h1>
     <table id="cookiestands">
-        <tfoot id="tfoot"></tfoot>
     </table>
+    <form id="salmon-form">
+        <fieldset>
+            <legend>New Store Location</legend>
+            
+            <label for="store">Store:</label>
+            <input name="store" type="text" />
+            
+            <label for="mincookies">Minimum Cookies:</label>
+            <input name="mincookies" type="text" size="50" />
+
+            <label for="maxcookies">Maximum Cookies:</label>
+            <input name="maxcookies" type="text" />
+            
+            <label for="avgcookiessoldperhr">Average Cookies sold/Hour:</label>
+            <input name="avgcookiessoldperhr" type="text" size="50" />
+
+        </fieldset>
+        <button id="store-button" type="submit">Create New Store!</button>
+    </form>
+    </br>
+
     <script src="app.js"></script>
 </body>
 

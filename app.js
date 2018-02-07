@@ -19,6 +19,9 @@ var hours = [
 
 //we need to create a place for our list of all locations to be placed whenwe create them
 var allLocations = [];
+var salmonForm = document.getElementById('salmon-form');
+salmonForm.addEventListener('submit', handleStoreSubmit);
+
 
 //CONSTRUCTOR function begin with an Uppercase letter
 
@@ -96,19 +99,23 @@ function tableRowMaker() {
   cookiestands.appendChild(trEl); //add row to the table
   for (var k = 0; k < allLocations.length; k++) {
     var location = allLocations[k];
-    var trEl2 = document.createElement('tr');
-    location.cookiesSoldByHour.unshift(location.name);
-    for (var j = 0; j < location.cookiesSoldByHour.length; j++) {
-      var cookiesSoldByHour = location.cookiesSoldByHour[j];
-      if (j > 0)  {   
-        total[j] += cookiesSoldByHour;
-      }
-      var tdEl2 = document.createElement('td');
-      tdEl2.textContent = cookiesSoldByHour; //create
-      trEl2.appendChild(tdEl2); //add cell to the row
-    }
-    cookiestands.appendChild(trEl2); //add location row to cell
+    createRow(location);
   }
+}
+
+function createRow(location) {
+  location.cookiesSoldByHour.unshift(location.name);
+  var row = document.createElement('tr');
+  for (var j = 0; j < location.cookiesSoldByHour.length; j++) {
+    var cookiesSoldByHour = location.cookiesSoldByHour[j];
+    if (j > 0) {
+      total[j] += cookiesSoldByHour;
+    }
+    var tdEl2 = document.createElement('td');
+    tdEl2.textContent = cookiesSoldByHour; //create
+    row.appendChild(tdEl2); //add cell to the row
+  }
+  cookiestands.appendChild(row); //add location row to cell
 }
 
 function footerRow() {
@@ -120,6 +127,41 @@ function footerRow() {
   }
   cookiestands.appendChild(trEl); //add row to the table
 }
+
+function handleStoreSubmit(event) {
+  console.log(event);
+  event.preventDefault(); //gotta have it. prevents page reload
+
+  if (!event.target.store.value || !event.target.mincookies.value || !event.target.maxcookies.value || !event.target.avgcookiessoldperhr.value)  {
+    return alert('Fields cannot be empty!');
+  }
+
+  
+  var storeName = event.target.store.value;
+  var minCookies = event.target.mincookies.value;
+  var maxCookies = event.target.maxcookies.value;
+  var avgCookies = event.target.avgcookiessoldperhr.value;
+
+  var newStore = new MakeLocation(storeName, minCookies, maxCookies, avgCookies);
+
+
+  console.log('Store name ' + event.target.store.value + ' created at ' + Date());
+
+  event.target.store.value = null;
+  event.target.mincookies.value = null;
+  event.target.maxcookies.value = null;
+  event.target.avgcookiessoldperhr.value = null;
+
+  renderNewRow(newStore);
+}
+
+function renderNewRow(newStore) {
+  var tableLength = cookiestands.rows.length;
+  cookiestands.deleteRow(tableLength - 1);
+  createRow(newStore);
+  footerRow();
+}
+console.log(salmonForm);
 
 tableRowMaker();
 footerRow();
